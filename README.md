@@ -1,0 +1,1 @@
+Hello! I am currently creating an alexa skill that is a alarm. I have gotten annoyed with the default alarm, so I thought I would create a new one. Instead of the annoying beeping, it wakes you up by saying "Good Morning! It is (time) on (day), (date). I will hopefully be able to add weather in the future
