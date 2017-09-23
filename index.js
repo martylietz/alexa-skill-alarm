@@ -11,7 +11,7 @@ exports.handler = function(event, context, callback)
   var alexa = Alexa.handler(event, context);
   alexa.APP_ID = APP_ID;
   alexa.registerHandlers(handlers);
-  alexa.dynamoDBTableName = 'UserName'
+  alexa.dynamoDBTableName = 'usersName';
   alexa.execute();
 };
 
@@ -19,24 +19,18 @@ var handlers =
 {
   'LaunchRequest': function ()
   {
-   this.emit('RememberNameIntent')
+    this.emit('RemebmberNameIntent');
   },
 
-  'RemebmberNameIntent': function ()
+   'RemebmberNameIntent': function ()
   {
-     var nameSlot = this.event.request.intent.slot.name.value;
-     var name;
-     if(nameSlot)
-     {
-       name = nameSlot;
-     }
-
-     if (name)
-     {
-       this.atttributes['userName'] = name;
-       this.emit(':tell', 'Nice to meet you' + {name}, 'WelcomeAlarm')
-     };
-   },
+    this.atttributes['name'] = this.event.request.intent.slots.name.value;
+    this.emit(':ask', 'Hi! Welcome to Welcoming Alarm! What is your name?');
+    if (event.request.intent.slots.name !== undefined)
+    {
+      this.emit(':ask', "Sorry, I didnt get that, could you please repeat your name?")
+    };
+  },
 
   'WelcomeAlarm': function ()
   {
@@ -147,7 +141,7 @@ var dateTime = nonTime
 var realTime = moment().tz("America/Chicago").format('h:m,' );
 var gM = ("Good Morning! ")
 
-var speechOutput = (gM + {name} + "It is " + realTime + " on " + realDay + ', ' + today + '.');
+var speechOutput = (gM + "It is " + realTime + " on " + realDay + ', ' + today + '.');
     this.emit(':tellWithCard', speechOutput)
 
   },
